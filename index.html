@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#764ba2">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>نكت الشباب</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #fff;
+  }
+  h1 {
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  button {
+    padding: 15px 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    background: #fff;
+    color: #764ba2;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+  button:active { transform: scale(0.95); }
+  #joke {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 25px 35px;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    max-width: 600px;
+    min-height: 80px;
+    text-align: center;
+    line-height: 1.8;
+    border: 2px solid rgba(255,255,255,0.3);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  #joke.show { opacity: 1; }
+</style>
+</head>
+<body>
+  <h1>اضغط على اسمك تطلعلك نكتة</h1>
+  <div class="buttons">
+    <button onclick="showJoke('جميل')">جميل</button>
+    <button onclick="showJoke('ضياء')">ضياء</button>
+    <button onclick="showJoke('هماش')">هماش</button>
+    <button onclick="showJoke('أيمن')">أيمن</button>
+    <button onclick="showJoke('نادر')">نادر</button>
+  </div>
+  <div id="joke"></div>
+
+<script>
+  const jokes = {
+    "جميل": [
+      "جميل، اسمك جميل بس المرآة بتتكسر لما تطل عليها!",
+      "قالوا لجميل: شو سر جمالك؟ قال: الفلاتر الأصلية!",
+      "جميل بيحكي مع الحيط، والحيط بيرد عليه: خلص يا زلمة تعبتني!"
+    ],
+    "ضياء": [
+      "ضياء، نورك أقوى من الكهربا، بس فاتورتك أغلى!",
+      "قالوا لضياء: أطفي النور. قال: ما بقدر، أنا هو النور!",
+      "ضياء لما بيدخل الغرفة، الشمس بتحس بالغيرة وبتروح!"
+    ],
+    "هماش": [
+      "هماش، اسم على مسمى... كل ما حدا بيحكي، بهمش معه!",
+      "سألوا هماش: ليش دايماً صامت؟ قال: عم بشحن!",
+      "هماش بيحكي بصوت واطي، حتى الـ WiFi بيقول: ما عم اسمعك!"
+    ],
+    "أيمن": [
+      "أيمن، كل شي عندك يمين، حتى لما بتغلط بتغلط ع اليمين!",
+      "قالوا لأيمن: لف يسار. قال: ما بعرف وين هي!",
+      "أيمن دخل محل وسأل: في عندكم شي شمال؟ قال البائع: برا!"
+    ],
+    "نادر": [
+      "نادر، اسم على مسمى، نادر ما بترد ع التلفون!",
+      "قالوا لنادر: ليش ما بتطلع؟ قال: أنا نادر الوجود!",
+      "نادر بيحكي: أنا زي الألماس، نادر... بس بدون سعر!"
+    ]
+  };
+
+  const jokeBox = document.getElementById('joke');
+
+  function showJoke(name) {
+    const list = jokes[name];
+    const joke = list[Math.floor(Math.random() * list.length)];
+    jokeBox.classList.remove('show');
+    setTimeout(() => {
+      jokeBox.textContent = joke;
+      jokeBox.classList.add('show');
+    }, 200);
+  }
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
