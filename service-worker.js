@@ -1,9 +1,10 @@
-const CACHE_NAME = 'jokes-app-v1';
+const CACHE_NAME = 'jokes-app-v2';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './bg.jpg'
 ];
 
 self.addEventListener('install', (event) => {
